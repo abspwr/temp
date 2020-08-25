@@ -1,0 +1,59 @@
+﻿<Window x:Class="Administracija_Korisnika.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Administracija_Korisnika"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="405.094" Width="800" Loaded="Window_Loaded">
+
+    <Window.Resources>
+
+        <local:UserDAL x:Key="UserResource"/>
+        
+        <DataTemplate x:Key="UserTamplate">
+            <Border BorderBrush="Gray"
+                    Width="235">
+                <StackPanel>
+                    <TextBlock Text="{Binding Path=UserName}" 
+                               Foreground="Black" 
+                               Background="White" 
+                               Height="30" 
+                               Width="235" 
+                               Margin="0,5,0,5" 
+                               Padding="5,5,5,5" 
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Border>            
+        </DataTemplate>
+
+        <DataTemplate x:Key="ComboBoxDataTemplate">
+            <TextBlock  Background="White" Foreground="Black" FontFamily="Book Antiqua" FontSize="14" />
+        </DataTemplate>
+
+    </Window.Resources>
+
+    <Grid DataContext="{StaticResource UserResource}" Background="#FFDDE5FF">
+
+        <ListBox x:Name="ListBoxUsers" HorizontalAlignment="Left" Background="LightBlue" Height="256" Margin="507,55,0,0" VerticalAlignment="Top" Width="251" ItemsSource="{Binding Path=UserName}" ItemTemplate="{StaticResource UserTamplate}" SelectionChanged="ListBoxUsers_SelectionChanged"/>
+        <Label Content="ID" HorizontalAlignment="Left" Margin="81,55,0,0" VerticalAlignment="Top" Background="#FFA3D0FD" FontFamily="Book Antiqua" HorizontalContentAlignment="Center" BorderBrush="#FFACADBB" BorderThickness="2" Width="90" Height="30"/>
+        <TextBox x:Name="TextBoxId" HorizontalAlignment="Left" Height="30" Margin="184,55,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="294" IsReadOnly="True" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label Content="User Name" HorizontalAlignment="Left" Margin="81,103,0,0" VerticalAlignment="Top" Background="#FFA3D0FD" FontFamily="Book Antiqua" HorizontalContentAlignment="Center" BorderBrush="#FFACADBB" BorderThickness="2" Width="90" Height="30"/>
+        <Label Content="Password" HorizontalAlignment="Left" Margin="81,152,0,0" VerticalAlignment="Top" Background="#FFA3D0FD" FontFamily="Book Antiqua" HorizontalContentAlignment="Center" BorderBrush="#FFACADBB" BorderThickness="2" Width="90" Height="30"/>
+        <Label Content="Admin Status" HorizontalAlignment="Left" Margin="81,198,0,0" VerticalAlignment="Top" Background="#FFA3D0FD" FontFamily="Book Antiqua" HorizontalContentAlignment="Center" BorderBrush="#FFACADBB" BorderThickness="2" Width="90" Height="30"/>
+        <TextBox x:Name="TextBoxUserName" HorizontalAlignment="Left" Height="30" Margin="184,103,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="294" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="TextBoxPassword" HorizontalAlignment="Left" Height="30" Margin="184,152,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="294" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Button x:Name="ButtonChange" Content="Change" HorizontalAlignment="Left" Height="45" Margin="184,266,0,0" VerticalAlignment="Top" Width="90" Background="#FF1A4CD1" BorderBrush="White" Foreground="White" FontFamily="Book Antiqua" FontSize="14"/>
+        <Button x:Name="ButtonAdd" Content="Add" HorizontalAlignment="Left" Height="45" Margin="287,266,0,0" VerticalAlignment="Top" Width="90" Background="#FF1A4CD1" BorderBrush="White" Foreground="White" FontFamily="Book Antiqua" FontSize="14" Click="ButtonAdd_Click"/>
+        <Button x:Name="ButtonDelete" Content="Delete" HorizontalAlignment="Left" Height="45" Margin="388,266,0,0" VerticalAlignment="Top" Width="90" Background="#FF1A4CD1" BorderBrush="White" Foreground="White" FontFamily="Book Antiqua" FontSize="14"/>
+        <Button x:Name="ButtonClear" Content="Clear" HorizontalAlignment="Left" Height="45" Margin="81,266,0,0" VerticalAlignment="Top" Width="90" Background="#FF1A4CD1" BorderBrush="White" Foreground="White" FontFamily="Book Antiqua" FontSize="14" Click="ButtonClear_Click"/>
+
+        <!-- objašnjeno https://stackoverflow.com/questions/3775514/wpf-combobox-value-and-display-text -->
+        <ComboBox Name="ComboBoxAdmin" HorizontalAlignment="Left" Margin="184,198,0,0" VerticalAlignment="Top" Width="294" Height="30" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ItemTemplate ="{StaticResource ComboBoxDataTemplate}" SelectedValuePath="Tag" SelectedValue="{Binding IsAdmin, Mode=TwoWay}">>
+            <ComboBoxItem Content="Yes" Tag="1"/>
+            <ComboBoxItem Content="No" Tag="0"/>
+        </ComboBox>
+    </Grid>
+
+   
+</Window>
